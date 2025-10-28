@@ -23,7 +23,7 @@ services:
       - "traefik.http.routers.whmcs-admin.middlewares=whmcs-admin-auth@docker"
 
   php-fpm:
-    image: ghcr.io/edythecow/whmcs-php-fpm:latest
+    image: ghcr.io/edythecow/whmcs-php-fpm:php-8.3
     volumes:
       - whmcs-www:/var/www
     environment:
