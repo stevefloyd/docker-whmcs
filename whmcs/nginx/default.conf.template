@@ -4,7 +4,7 @@ server {
 
     server_name pay.servicepress.ai;
     root /var/www/html;
-    index index.php index.html index.htm;
+    index index.php index.html index.htm;   # ← important for directory index
 
     # === Cloudflare Real IP Settings ===
     set_real_ip_from 103.21.244.0/22;
@@ -37,7 +37,7 @@ server {
     # === Lagom Website Builder Clean URLs ===
     include /var/www/html/.htaccess-nginx;
 
-    # PHP handler
+    # PHP handler — placed BEFORE location / 
     location ~ \.php$ {
         try_files $uri =404;
         include fastcgi_params;
@@ -51,7 +51,7 @@ server {
         fastcgi_read_timeout 600;
     }
 
-    # Main router — this is the exact combination that worked best for you
+    # Main router — this fixes the /admin/ and /admin/? download issue
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }
