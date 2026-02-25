@@ -37,7 +37,7 @@ server {
     # === Lagom Website Builder Clean URLs ===
     include /var/www/html/.htaccess-nginx;
 
-    # PHP handler — placed BEFORE location / so /admin/index.php is ALWAYS processed as PHP
+    # PHP handler
     location ~ \.php$ {
         try_files $uri =404;
         include fastcgi_params;
@@ -51,7 +51,12 @@ server {
         fastcgi_read_timeout 600;
     }
 
-    # Main router for WHMCS + Lagom
+    # === TARGETED FIX — ONLY AFFECTS /admin/ (nothing else) ===
+    location ^~ /admin/ {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    # Main router for everything else
     location / {
         try_files $uri $uri/ /index.php?$query_string;
     }
