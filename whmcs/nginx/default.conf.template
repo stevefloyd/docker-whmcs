@@ -2,7 +2,7 @@ server {
     listen 80 default_server;
     listen [::]:80 default_server;
 
-    server_name pay.servicepress.ai;
+    server_name servicepress.ai;
     root /var/www/html;
     index index.php index.html index.htm;   # ← important for directory index
 
